@@ -1,10 +1,10 @@
 [app]
 
 # اسم التطبيق
-title = Goalkeeper Training
+title = GoalkeeperTraining
 
 # اسم الحزمة
-package.name = goalkeeper
+package.name = goalkeepertraining 
 
 # الدومين
 package.domain = org.goalkeeper
