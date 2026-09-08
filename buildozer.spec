@@ -40,7 +40,7 @@ warn_on_root = 1
 [android]
 
 # معمارية الأجهزة
-android.archs = arm64-v8a
+android.archs = armeabi-v7a
 
 # إصدار Android الأدنى
 android.minapi = 23
