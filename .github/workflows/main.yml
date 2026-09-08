@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - master
 
 jobs:
   build:
@@ -43,11 +44,14 @@ jobs:
           pip install buildozer cython==0.29.37
 
       - name: Build APK
+        env:
+          ACCEPT_ANDROID_SDK_LICENSE: "1"
         run: |
           buildozer android debug
 
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: APK
+          name: Goalkeeper-Trainer-APK
           path: bin/*.apk
