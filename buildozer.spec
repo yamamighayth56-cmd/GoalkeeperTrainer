@@ -18,15 +18,13 @@ orientation = portrait
 
 fullscreen = 0
 
-android.sdk_path = /home/runner/android-sdk
-
 android.api = 35
 
 android.minapi = 23
 
 android.enable_androidx = True
 
-android.skip_update = True
+android.skip_update = False
 
 
 [buildozer]
