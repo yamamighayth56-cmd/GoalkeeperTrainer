@@ -23,7 +23,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Install system dependencies
         run: |
@@ -32,75 +32,23 @@ jobs:
             git \
             zip \
             unzip \
-            wget \
-            build-essential \
-            libffi-dev \
-            libssl-dev \
+            openjdk-17-jdk \
+            autoconf \
+            automake \
+            libtool \
+            pkg-config \
             zlib1g-dev \
             libncurses5-dev \
             libncursesw5-dev \
             cmake \
-            libltdl-dev \
-            libtool \
-            autoconf \
-            automake
+            libffi-dev \
+            libssl-dev
 
       - name: Install Buildozer
         run: |
-          python -m pip install --upgrade pip
-          pip install buildozer
-          pip install cython==0.29.33
-
-      - name: Install Android SDK
-        run: |
-          mkdir -p "$HOME/android-sdk/cmdline-tools"
-
-          cd "$HOME"
-
-          wget -q https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip
-
-          unzip -q commandlinetools-linux-15859902_latest.zip
-
-          mv cmdline-tools "$HOME/android-sdk/cmdline-tools/latest"
-
-          echo "ANDROID_HOME=$HOME/android-sdk" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> "$GITHUB_ENV"
-
-          echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
-          echo "$HOME/android-sdk/platform-tools" >> "$GITHUB_PATH"
-
-      - name: Check SDK Manager
-        run: |
-          which sdkmanager
-          sdkmanager --version
-
-      - name: Accept Android SDK licenses
-        run: |
-          yes | sdkmanager --sdk_root="$HOME/android-sdk" --licenses || true
-
-      - name: Install Android SDK packages
-        run: |
-          sdkmanager --sdk_root="$HOME/android-sdk" \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
-
-      - name: Verify AIDL
-        run: |
-          echo "Checking AIDL..."
-
-          AIDL="$HOME/android-sdk/build-tools/35.0.0/aidl"
-
-          if [ ! -f "$AIDL" ]; then
-            echo "Error: AIDL not found!"
-            exit 1
-          fi
-
-          ls -la "$AIDL"
-
-          "$AIDL" --version
-
-          echo "AIDL OK"
+          python -m pip install --upgrade pip setuptools wheel
+          pip install buildozer==1.5.0
+          pip install cython==0.29.37
 
       - name: Build APK
         run: |
@@ -109,5 +57,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Android-APK
+          name: GoalkeeperTraining-APK
           path: bin/*.apk
+          if-no-files-found: error
