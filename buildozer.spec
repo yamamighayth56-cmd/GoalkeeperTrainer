@@ -8,7 +8,7 @@ package.domain = org.goalkeeper
 
 source.dir = .
 
-source.include_exts = py,png,jpg,jpeg,kv,atlas
+source.include_exts = py,png,jpg,jpeg,kv,atlas,json
 
 version = 1.0
 
@@ -22,9 +22,13 @@ android.api = 35
 
 android.minapi = 23
 
+android.ndk = 25b
+
+android.ndk_api = 23
+
 android.enable_androidx = True
 
-android.skip_update = False
+android.accept_sdk_license = True
 
 
 [buildozer]
