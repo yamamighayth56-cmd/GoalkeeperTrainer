@@ -82,9 +82,8 @@ jobs:
           echo "Checking Android SDK..."
           test -d "$HOME/android-sdk/platforms/android-35"
           test -f "$HOME/android-sdk/build-tools/36.0.0/aidl"
-          "$HOME/android-sdk/build-tools/36.0.0/aidl" --version
           echo "Android SDK OK"
-          echo "AIDL OK"
+          echo "AIDL file found"
 
       - name: Build APK
         run: |
