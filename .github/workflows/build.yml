@@ -53,28 +53,17 @@ jobs:
 
           cd "$HOME"
 
-          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip
 
-          unzip -q commandlinetools-linux-11076708_latest.zip
+          unzip -q commandlinetools-linux-15859902_latest.zip
 
           mv cmdline-tools "$HOME/android-sdk/cmdline-tools/latest"
-
-          mkdir -p "$HOME/android-sdk/tools/bin"
-
-          ln -sf \
-            "$HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager" \
-            "$HOME/android-sdk/tools/bin/sdkmanager"
-
-          ln -sf \
-            "$HOME/android-sdk/cmdline-tools/latest/bin/avdmanager" \
-            "$HOME/android-sdk/tools/bin/avdmanager"
 
           echo "ANDROID_HOME=$HOME/android-sdk" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> "$GITHUB_ENV"
           echo "ANDROIDSDK=$HOME/android-sdk" >> "$GITHUB_ENV"
 
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
-          echo "$HOME/android-sdk/tools/bin" >> "$GITHUB_PATH"
           echo "$HOME/android-sdk/platform-tools" >> "$GITHUB_PATH"
 
       - name: Accept Android licenses
@@ -86,12 +75,14 @@ jobs:
           sdkmanager --sdk_root="$HOME/android-sdk" \
             "platform-tools" \
             "platforms;android-35" \
-            "build-tools;37.0.0"
+            "build-tools;36.0.0"
 
-      - name: Check Android SDK
+      - name: Verify Android SDK
         run: |
-          test -f "$HOME/android-sdk/tools/bin/sdkmanager"
-          test -f "$HOME/android-sdk/build-tools/37.0.0/aidl"
+          echo "Checking Android SDK..."
+          test -d "$HOME/android-sdk/platforms/android-35"
+          test -f "$HOME/android-sdk/build-tools/36.0.0/aidl"
+          "$HOME/android-sdk/build-tools/36.0.0/aidl" --version
           echo "Android SDK OK"
           echo "AIDL OK"
 
